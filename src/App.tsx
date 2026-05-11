@@ -26,7 +26,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
 import './App.css'
 
-const STORAGE_KEY = 'life-board:data:v1'
+const STORAGE_KEY = 'life-board:data:v2'
 
 type View = 'dashboard' | 'tasks' | 'habits' | 'notes'
 type Priority = '高' | '中' | '低'
@@ -132,108 +132,11 @@ function getStreak(logs: Record<string, boolean>) {
   return streak
 }
 
-function createSeedData(): BoardData {
-  const today = dateKey()
-  const tomorrow = dateKey(addDays(new Date(), 1))
-  const later = dateKey(addDays(new Date(), 4))
-  const yesterday = dateKey(addDays(new Date(), -1))
-
+function createEmptyData(): BoardData {
   return {
-    tasks: [
-      {
-        id: makeId('task'),
-        title: '整理本周重要事项',
-        project: '工作',
-        priority: '高',
-        due: today,
-        estimate: 45,
-        status: 'doing',
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: makeId('task'),
-        title: '确认下一个里程碑',
-        project: '项目',
-        priority: '中',
-        due: tomorrow,
-        estimate: 30,
-        status: 'todo',
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: makeId('task'),
-        title: '复盘昨天完成的任务',
-        project: '个人',
-        priority: '低',
-        due: yesterday,
-        estimate: 20,
-        status: 'done',
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: makeId('task'),
-        title: '准备周末阅读清单',
-        project: '学习',
-        priority: '中',
-        due: later,
-        estimate: 25,
-        status: 'todo',
-        createdAt: new Date().toISOString(),
-      },
-    ],
-    habits: [
-      {
-        id: makeId('habit'),
-        title: '早起喝水',
-        target: 6,
-        logs: {
-          [dateKey(addDays(new Date(), -4))]: true,
-          [dateKey(addDays(new Date(), -3))]: true,
-          [dateKey(addDays(new Date(), -2))]: true,
-          [yesterday]: true,
-        },
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: makeId('habit'),
-        title: '30 分钟深度工作',
-        target: 5,
-        logs: {
-          [dateKey(addDays(new Date(), -5))]: true,
-          [dateKey(addDays(new Date(), -2))]: true,
-          [today]: true,
-        },
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: makeId('habit'),
-        title: '睡前整理桌面',
-        target: 4,
-        logs: {
-          [dateKey(addDays(new Date(), -6))]: true,
-          [yesterday]: true,
-        },
-        createdAt: new Date().toISOString(),
-      },
-    ],
-    notes: [
-      {
-        id: makeId('note'),
-        title: '今日重点',
-        body: '先完成最难的一件事，再处理零散消息。',
-        pinned: true,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-      {
-        id: makeId('note'),
-        title: '灵感箱',
-        body: '把临时想法先放进这里，晚上再整理成任务。',
-        pinned: false,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-    ],
+    tasks: [],
+    habits: [],
+    notes: [],
   }
 }
 
@@ -241,13 +144,13 @@ function readStoredData(): BoardData {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (!raw) {
-      return createSeedData()
+      return createEmptyData()
     }
 
     const parsed = JSON.parse(raw) as Partial<BoardData>
 
     if (!Array.isArray(parsed.tasks) || !Array.isArray(parsed.habits) || !Array.isArray(parsed.notes)) {
-      return createSeedData()
+      return createEmptyData()
     }
 
     return {
@@ -256,7 +159,7 @@ function readStoredData(): BoardData {
       notes: parsed.notes,
     }
   } catch {
-    return createSeedData()
+    return createEmptyData()
   }
 }
 
@@ -653,11 +556,11 @@ function App() {
   }
 
   function resetData() {
-    if (!confirm('确定恢复示例数据吗？当前本地数据会被替换。')) {
+    if (!confirm('确定清空本地数据吗？当前任务、习惯和笔记都会被删除。')) {
       return
     }
 
-    setData(createSeedData())
+    setData(createEmptyData())
     setTaskSearch('')
     setTaskStatus('all')
     setTaskProject('全部')
@@ -718,7 +621,7 @@ function App() {
           >
             <Upload size={18} />
           </button>
-          <button type="button" className="icon-action danger" onClick={resetData} title="恢复示例" aria-label="恢复示例">
+          <button type="button" className="icon-action danger" onClick={resetData} title="清空数据" aria-label="清空数据">
             <RotateCcw size={18} />
           </button>
         </div>
@@ -844,23 +747,27 @@ function App() {
                 </div>
 
                 <div className="habit-strip">
-                  {data.habits.map((habit) => (
-                    <div className="habit-row compact" key={habit.id}>
-                      <div>
-                        <strong>{habit.title}</strong>
-                        <span>{getStreak(habit.logs)} 天连续</span>
+                  {data.habits.length ? (
+                    data.habits.map((habit) => (
+                      <div className="habit-row compact" key={habit.id}>
+                        <div>
+                          <strong>{habit.title}</strong>
+                          <span>{getStreak(habit.logs)} 天连续</span>
+                        </div>
+                        <div className="day-dots">
+                          {weekKeys.map((key) => (
+                            <span
+                              className={habit.logs[key] ? 'day-dot checked' : 'day-dot'}
+                              title={formatShortDate(key)}
+                              key={key}
+                            ></span>
+                          ))}
+                        </div>
                       </div>
-                      <div className="day-dots">
-                        {weekKeys.map((key) => (
-                          <span
-                            className={habit.logs[key] ? 'day-dot checked' : 'day-dot'}
-                            title={formatShortDate(key)}
-                            key={key}
-                          ></span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+                    <p className="empty-state">还没有习惯</p>
+                  )}
                 </div>
               </article>
             </section>
