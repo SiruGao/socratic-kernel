@@ -1,67 +1,75 @@
-# LifeBoard 生活看板
+# Socratic Kernel · 内核
 
-一个可以直接运行的本地效率应用，包含任务管理、习惯打卡、笔记、统计总览、JSON 导入导出和本地数据保存。首次打开时没有预设数据，用户可以从空白状态开始使用。
+> 答案可以外包，判断不能。
 
-## 功能
+Socratic Kernel 是一个本地优先的认知自主权练习工具。它不会替用户作出人生判断，而是要求用户先写下自己的立场，再通过概念澄清、证据检验、可证伪性、最强反方、价值来源、长期后果和责任归属等维度完成一次结构化审议。
 
-- 任务：新增、搜索、按状态/项目筛选、编辑、删除、状态流转、优先级和截止日期
-- 习惯：新增、删除、最近 7 天打卡、每周目标、连续天数
-- 笔记：新增、搜索、编辑、删除、置顶
-- 总览：任务完成率、今日任务、逾期任务、习惯进度、完成分钟统计
-- 数据：自动保存到浏览器 LocalStorage，支持导入和导出 JSON
+## 在线使用
 
-## 在 VS Code 运行
+GitHub Pages 启用后，应用发布在：
 
-1. 用 VS Code 打开这个文件夹：
+`https://sirugao.github.io/life-board/`
 
-   ```bash
-   code /home/codespace/life-board
-   ```
+仓库重命名为 `socratic-kernel` 后，地址将变为：
 
-2. 打开 VS Code 终端：
+`https://sirugao.github.io/socratic-kernel/`
 
-   ```bash
-   Ctrl + `
-   ```
+## 已实现
 
-3. 安装依赖：
+- 决策审议
+- 观点审查
+- 阅读质疑
+- 自我反思
+- AI 使用审计
+- 绝对化表达、外部评价、紧迫性、判断外包和流畅性信任等线索检测
+- 逐题苏格拉底式追问
+- 最终判断、行动和责任确认
+- 长期思考档案与信心变化
+- 单条删除、全部删除、JSON 导入导出
+- PWA 安装与离线使用
+- 无服务端、无登录、无分析 SDK
 
-   ```bash
-   npm install
-   ```
+## 本地运行
 
-4. 启动开发服务器：
-
-   ```bash
-   npm run dev
-   ```
-
-5. 在浏览器打开终端里显示的地址，通常是：
-
-   ```text
-   http://localhost:5173/
-   ```
-
-## 测试和打包
-
-运行 lint 和生产构建检查：
+这是一个零依赖静态应用。
 
 ```bash
-npm test
+python3 -m http.server 4173
 ```
 
-只打包生产版本：
+浏览器打开：
+
+```text
+http://localhost:4173
+```
+
+## 测试
 
 ```bash
-npm run build
+node --check app.js
+node tests/smoke.mjs
 ```
 
-预览生产构建：
+## 文件结构
 
-```bash
-npm run preview
+```text
+.
+├── index.html
+├── app.js
+├── styles.css
+├── icon.svg
+├── manifest.webmanifest
+├── sw.js
+├── docs/
+│   ├── PRODUCT.md
+│   ├── ARCHITECTURE.md
+│   └── ROADMAP.md
+└── tests/
+    └── smoke.mjs
 ```
 
-## 给别人测试
+## 产品边界
 
-正式发布推荐用 Vercel 或 Netlify。详细步骤见 [DEPLOY.md](./DEPLOY.md)。
+Socratic Kernel 当前不是心理治疗、医疗、法律或财务建议工具，也不声称能够诊断人格或心理状态。认知线索只是需要用户继续核验的假设。
+
+更完整的产品原则见 [`docs/PRODUCT.md`](docs/PRODUCT.md)，技术架构见 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)，路线图见 [`docs/ROADMAP.md`](docs/ROADMAP.md)。
