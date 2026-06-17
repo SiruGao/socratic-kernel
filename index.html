@@ -1,13 +1,45 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>life-board</title>
+    <meta name="description" content="Socratic Kernel（内核）：一个不替你做决定的认知自主权练习工具。" />
+    <meta name="theme-color" content="#171915" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <title>Socratic Kernel · 内核</title>
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="返回首页">
+        <span class="brand-mark">核</span>
+        <span>
+          <strong>内核</strong>
+          <small>Socratic Kernel</small>
+        </span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <button class="nav-link active" data-route="home">今日</button>
+        <button class="nav-link" data-route="new">开始审议</button>
+        <button class="nav-link" data-route="history">思考档案</button>
+        <button class="nav-link" data-route="data">数据</button>
+      </nav>
+      <div class="top-actions">
+        <button class="ghost compact install-button" id="install-button" hidden>安装应用</button>
+        <button class="ghost compact" id="new-session-button">＋ 新审议</button>
+      </div>
+    </header>
+
+    <main id="app" tabindex="-1"></main>
+
+    <footer class="footer">
+      <p>它不替你决定，只帮助你看见前提、反例、价值冲突与责任。</p>
+      <p>默认本地保存 · 可导出 · 可删除</p>
+    </footer>
+
+    <script type="module" src="./app.js"></script>
   </body>
 </html>
