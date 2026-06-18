@@ -1,0 +1,482 @@
+/* Brand mark */
+.brand-mark {
+  isolation: isolate;
+  border: 0;
+  overflow: visible;
+  background: transparent;
+}
+
+.brand-mark::before,
+.brand-mark::after,
+.brand-mark i,
+.brand-mark b {
+  display: none;
+}
+
+.brand-symbol {
+  width: 48px;
+  height: 48px;
+  overflow: visible;
+  color: var(--ink);
+  filter: drop-shadow(0 7px 16px rgba(18, 17, 15, 0.08));
+}
+
+.logo-frame,
+.logo-ring,
+.logo-orbit {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.logo-frame {
+  stroke: currentColor;
+  stroke-width: 1.2;
+}
+
+.logo-ring {
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.2;
+  transform-origin: 32px 32px;
+}
+
+.logo-orbit {
+  stroke-width: 1.6;
+  transform-origin: 32px 32px;
+  transform-box: fill-box;
+}
+
+.logo-orbit-a {
+  stroke: var(--copper);
+  animation: logo-orbit-a 18s linear infinite;
+}
+
+.logo-orbit-b {
+  stroke: var(--ink);
+  opacity: 0.62;
+  animation: logo-orbit-b 23s linear infinite reverse;
+}
+
+.logo-core {
+  fill: var(--wine);
+  transform-origin: 32px 32px;
+  animation: logo-core-breathe 5.6s ease-in-out infinite;
+}
+
+.logo-aperture {
+  fill: var(--paper-light);
+}
+
+.logo-node {
+  fill: var(--copper);
+  transform-origin: 32px 32px;
+  filter: drop-shadow(0 0 5px rgba(177, 138, 85, 0.55));
+  animation: logo-node-pulse 3.8s ease-in-out infinite;
+}
+
+.brand:hover .logo-ring {
+  animation: logo-ring-expand 1.2s ease both;
+}
+
+.brand:hover .brand-symbol {
+  transform: rotate(-2deg) scale(1.04);
+}
+
+.brand-symbol,
+.brand-copy {
+  transition: transform 0.5s cubic-bezier(0.2, 0.72, 0.2, 1);
+}
+
+.brand:hover .brand-copy {
+  transform: translateX(3px);
+}
+
+/* Scroll and cursor */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 120;
+  height: 2px;
+  pointer-events: none;
+  background: rgba(18, 17, 15, 0.05);
+}
+
+.scroll-progress i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--wine), var(--copper));
+  box-shadow: 0 0 12px rgba(177, 138, 85, 0.3);
+  will-change: transform;
+}
+
+.cursor-aura {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 8;
+  width: 260px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(calc(var(--cursor-x, -300px) - 50%), calc(var(--cursor-y, -300px) - 50%), 0);
+  background: radial-gradient(circle, rgba(177, 138, 85, 0.13), rgba(91, 24, 32, 0.045) 42%, transparent 72%);
+  filter: blur(12px);
+  mix-blend-mode: multiply;
+  transition: opacity 0.35s ease;
+  will-change: transform;
+}
+
+body.has-fine-pointer .cursor-aura {
+  opacity: 1;
+}
+
+/* Route and viewport reveals */
+#app.route-enter {
+  animation: route-enter 0.72s cubic-bezier(0.2, 0.72, 0.2, 1) both;
+}
+
+.reveal-ready {
+  opacity: 0;
+  transform: translateY(28px);
+  clip-path: inset(0 0 16% 0);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.72, 0.2, 1),
+    transform 0.8s cubic-bezier(0.2, 0.72, 0.2, 1),
+    clip-path 0.9s cubic-bezier(0.2, 0.72, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-ready.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  clip-path: inset(0 0 0 0);
+}
+
+/* Magnetic controls */
+.is-magnetic {
+  --mag-x: 0px;
+  --mag-y: 0px;
+  transform: translate3d(var(--mag-x), var(--mag-y), 0);
+  transition:
+    transform 0.42s cubic-bezier(0.2, 0.72, 0.2, 1),
+    color 0.22s ease,
+    background 0.22s ease,
+    border-color 0.22s ease;
+  will-change: transform;
+}
+
+.is-magnetic > * {
+  pointer-events: none;
+}
+
+/* Tilt and sheen */
+.tilt-surface {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --sheen-x: 50%;
+  --sheen-y: 50%;
+  position: relative;
+  transform: perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(0);
+  transform-style: preserve-3d;
+  transition:
+    transform 0.56s cubic-bezier(0.2, 0.72, 0.2, 1),
+    color 0.3s ease,
+    background 0.3s ease;
+  will-change: transform;
+}
+
+.tilt-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at var(--sheen-x) var(--sheen-y), rgba(255, 255, 255, 0.18), transparent 34%);
+  transition: opacity 0.35s ease;
+}
+
+.tilt-surface:hover::before {
+  opacity: 1;
+}
+
+.tilt-surface > * {
+  position: relative;
+  z-index: 4;
+}
+
+.card.tilt-surface::after {
+  z-index: 5;
+}
+
+/* Nav interaction */
+.nav-link {
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: "";
+  position: absolute;
+  inset: auto 16px 15px;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: right center;
+  background: var(--copper);
+  transition: transform 0.34s cubic-bezier(0.2, 0.72, 0.2, 1);
+}
+
+.nav-link:hover::before {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.nav-link span {
+  transition: transform 0.32s ease, color 0.32s ease;
+}
+
+.nav-link:hover span {
+  color: var(--wine);
+  transform: translateY(-2px);
+}
+
+/* Hero depth */
+.hero-main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.72;
+  background:
+    radial-gradient(circle at calc(74% + var(--hero-glow-x, 0px)) calc(44% + var(--hero-glow-y, 0px)), rgba(91, 24, 32, 0.25), transparent 27%),
+    radial-gradient(circle at calc(62% + var(--hero-glow-x, 0px)) calc(32% + var(--hero-glow-y, 0px)), rgba(177, 138, 85, 0.12), transparent 20%);
+  transition: background-position 0.8s ease;
+}
+
+.hero-folio span,
+.side-index span,
+.side-index b {
+  transition: transform 0.7s cubic-bezier(0.2, 0.72, 0.2, 1), opacity 0.7s ease;
+}
+
+.hero:hover .hero-folio span:first-child {
+  transform: translateX(6px);
+}
+
+.hero:hover .hero-folio span:last-child {
+  transform: translateX(-6px);
+}
+
+.hero:hover .side-index b {
+  transform: translateY(-5px);
+}
+
+/* Section micro-interactions */
+.method-strip article,
+.metric,
+.example-card,
+.mode span,
+.engine-option span {
+  overflow: hidden;
+}
+
+.method-strip article::after,
+.metric::after,
+.example-card::after,
+.mode span::after,
+.engine-option span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 2px;
+  background: var(--copper);
+  transition: right 0.42s cubic-bezier(0.2, 0.72, 0.2, 1);
+}
+
+.method-strip article,
+.metric,
+.example-card,
+.mode span,
+.engine-option span {
+  position: relative;
+}
+
+.method-strip article:hover::after,
+.metric:hover::after,
+.example-card:hover::after,
+.mode span:hover::after,
+.engine-option span:hover::after {
+  right: 0;
+}
+
+.metric strong {
+  transition: transform 0.45s cubic-bezier(0.2, 0.72, 0.2, 1), color 0.3s ease;
+}
+
+.metric:hover strong {
+  color: var(--wine);
+  transform: translateY(-4px);
+}
+
+.pattern {
+  transition: transform 0.32s ease, border-color 0.32s ease;
+}
+
+.pattern:hover {
+  transform: translateX(5px);
+  border-color: rgba(91, 24, 32, 0.42);
+}
+
+/* Input focus polish */
+.field {
+  position: relative;
+}
+
+.field::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--wine), var(--copper));
+  transition: right 0.42s cubic-bezier(0.2, 0.72, 0.2, 1);
+}
+
+.field:focus-within::after {
+  right: 0;
+}
+
+textarea,
+input,
+select {
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+textarea:focus,
+input:focus,
+select:focus {
+  background: linear-gradient(180deg, transparent, rgba(177, 138, 85, 0.035));
+}
+
+/* Ambient movement */
+.ambient-one,
+.ambient-two {
+  transform: translate3d(var(--ambient-x, 0px), var(--ambient-y, 0px), 0);
+  transition: transform 1.4s cubic-bezier(0.2, 0.72, 0.2, 1);
+  will-change: transform;
+}
+
+@keyframes logo-orbit-a {
+  to {
+    transform: rotate(333deg);
+  }
+}
+
+@keyframes logo-orbit-b {
+  to {
+    transform: rotate(423deg);
+  }
+}
+
+@keyframes logo-core-breathe {
+  0%,
+  100% {
+    transform: scale(0.92);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes logo-node-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(0.82);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.22);
+  }
+}
+
+@keyframes logo-ring-expand {
+  0% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.12);
+  }
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+}
+
+@keyframes route-enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@media (pointer: coarse), (max-width: 760px) {
+  .cursor-aura {
+    display: none;
+  }
+
+  .tilt-surface,
+  .is-magnetic {
+    transform: none !important;
+  }
+
+  .tilt-surface::before {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress {
+    display: none;
+  }
+
+  .cursor-aura {
+    display: none;
+  }
+
+  .brand-symbol,
+  .logo-ring,
+  .logo-orbit-a,
+  .logo-orbit-b,
+  .logo-core,
+  .logo-node,
+  #app.route-enter,
+  .reveal-ready,
+  .is-magnetic,
+  .tilt-surface,
+  .ambient-one,
+  .ambient-two {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .reveal-ready {
+    opacity: 1 !important;
+    clip-path: none !important;
+  }
+}

@@ -1,8 +1,8 @@
 {
   "name": "socratic-kernel",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "private": true,
-  "description": "A local-first cognitive autonomy practice application with an editorial art direction and optional multi-provider Socratic AI gateway.",
+  "description": "A local-first cognitive autonomy practice application with an editorial art direction, premium progressive interactions, and an optional multi-provider Socratic AI gateway.",
   "homepage": "https://sirugao.github.io/socratic-kernel/",
   "repository": {
     "type": "git",
@@ -22,12 +22,13 @@
     "anti-sycophancy",
     "llm-gateway",
     "privacy",
-    "editorial-design"
+    "editorial-design",
+    "progressive-motion"
   ],
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --check app.js && node --check onboarding.js && node --check ai.js && node --check visual.js && node --check sw.js && node --check lib/ai-gateway.js && node --check lib/http.js && node --check api/providers.js && node --check api/inquiry.js && node tests/smoke.mjs && node tests/ai-gateway.mjs"
+    "test": "node --check app.js && node --check onboarding.js && node --check ai.js && node --check visual.js && node --check interactions.js && node --check sw.js && node --check lib/ai-gateway.js && node --check lib/http.js && node --check api/providers.js && node --check api/inquiry.js && node tests/smoke.mjs && node tests/motion.mjs && node tests/ai-gateway.mjs"
   },
   "engines": {
     "node": ">=20"

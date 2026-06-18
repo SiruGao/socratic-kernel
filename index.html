@@ -11,16 +11,29 @@
     <title>Socratic Kernel · 内核</title>
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./ai.css" />
+    <link rel="stylesheet" href="./motion.css" />
   </head>
   <body>
     <a class="skip-link" href="#app">跳到主要内容</a>
+    <div class="scroll-progress" aria-hidden="true"><i></i></div>
+    <div class="cursor-aura" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
     <div class="ambient ambient-one" aria-hidden="true"></div>
     <div class="ambient ambient-two" aria-hidden="true"></div>
 
     <header class="topbar">
       <a class="brand" href="#home" aria-label="返回首页">
-        <span class="brand-mark" aria-hidden="true"><i></i><b>核</b></span>
+        <span class="brand-mark" aria-hidden="true">
+          <svg class="brand-symbol" viewBox="0 0 64 64" focusable="false">
+            <rect class="logo-frame" x="1" y="1" width="62" height="62" />
+            <circle class="logo-ring" cx="32" cy="32" r="18" />
+            <ellipse class="logo-orbit logo-orbit-a" cx="32" cy="32" rx="23" ry="9" transform="rotate(-27 32 32)" />
+            <ellipse class="logo-orbit logo-orbit-b" cx="32" cy="32" rx="23" ry="9" transform="rotate(63 32 32)" />
+            <circle class="logo-core" cx="32" cy="32" r="7" />
+            <circle class="logo-aperture" cx="32" cy="32" r="2.2" />
+            <circle class="logo-node" cx="49.5" cy="17.5" r="2.7" />
+          </svg>
+        </span>
         <span class="brand-copy">
           <strong>Socratic Kernel</strong>
           <small>内核 · 判断自主练习</small>
@@ -54,5 +67,6 @@
     <script type="module" src="./onboarding.js"></script>
     <script type="module" src="./ai.js"></script>
     <script type="module" src="./visual.js"></script>
+    <script type="module" src="./interactions.js"></script>
   </body>
 </html>
