@@ -4,15 +4,22 @@
   </a>
 
   <h1>Socratic Kernel</h1>
-  <p><strong>A local-first practice tool for cognitive autonomy.</strong></p>
-  <p>Write your position first, then examine assumptions, evidence, counterarguments, values, and responsibility.</p>
+  <p><strong>A local-first application for practicing cognitive autonomy.</strong></p>
+  <p>Write your position first, then examine assumptions, evidence, opposition, values, consequences, and responsibility.</p>
 
   <p>
-    <a href="https://sirugao.github.io/socratic-kernel/"><strong>Live Demo</strong></a>
+    <a href="https://sirugao.github.io/socratic-kernel/"><img src="https://img.shields.io/badge/Launch%20App-Open%20Local%20Version-214732?style=for-the-badge" alt="Launch Socratic Kernel" /></a>
+    <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FSiruGao%2Fsocratic-kernel&project-name=socratic-kernel&repository-name=socratic-kernel"><img src="https://img.shields.io/badge/Deploy%20AI%20Version-Vercel-000000?style=for-the-badge&logo=vercel" alt="Deploy with Vercel" /></a>
+  </p>
+
+  <p>
+    <a href="./docs/QUICKSTART.md">5-minute quickstart</a>
     ·
-    <a href="./docs/PRODUCT.md">Product Principles</a>
+    <a href="./docs/MODEL_CENTER.md">Model center</a>
     ·
-    <a href="./docs/ROADMAP.md">Roadmap</a>
+    <a href="./docs/AI_GATEWAY.md">AI Gateway</a>
+    ·
+    <a href="./docs/PRODUCT.md">Product principles</a>
     ·
     <a href="./README.md">简体中文</a>
   </p>
@@ -20,15 +27,15 @@
   <p>
     <a href="https://github.com/SiruGao/socratic-kernel/actions/workflows/deploy-kernel-pages.yml"><img src="https://github.com/SiruGao/socratic-kernel/actions/workflows/deploy-kernel-pages.yml/badge.svg" alt="Deploy status" /></a>
     <a href="https://github.com/SiruGao/socratic-kernel/stargazers"><img src="https://img.shields.io/github/stars/SiruGao/socratic-kernel?style=flat-square" alt="GitHub stars" /></a>
-    <img src="https://img.shields.io/badge/version-v0.2.0-214732?style=flat-square" alt="Version 0.2.0" />
+    <img src="https://img.shields.io/badge/version-v0.6.0-214732?style=flat-square" alt="Version 0.6.0" />
     <img src="https://img.shields.io/badge/PWA-installable-335d43?style=flat-square" alt="Installable PWA" />
-    <img src="https://img.shields.io/badge/data-local--first-d8ae5e?style=flat-square" alt="Local-first data" />
-    <img src="https://img.shields.io/badge/telemetry-none-171915?style=flat-square" alt="No telemetry" />
+    <img src="https://img.shields.io/badge/AI-optional-d8ae5e?style=flat-square" alt="Optional AI gateway" />
+    <img src="https://img.shields.io/badge/data-local--first-171915?style=flat-square" alt="Local-first data" />
   </p>
 </div>
 
 > [!IMPORTANT]
-> **This is an early MVP.** It uses transparent local rules and structured inquiry. It does not call a cloud LLM and does not claim to diagnose personality or mental health conditions.
+> Socratic Kernel is not a faster answer machine. It requires an initial human position before structured inquiry. The user must still confirm the final judgment, action, and responsibility.
 
 <p align="center">
   <img src="./docs/assets/product-preview.svg" width="100%" alt="Socratic Kernel product interface preview" />
@@ -36,34 +43,28 @@
 
 ## Why it exists
 
-Generative AI makes answers immediate, polished, and inexpensive. It can also make it easy to outsource problem framing, value prioritization, and final judgment.
+Generative AI makes answers immediate, polished, and inexpensive. It can also make problem framing, value prioritization, and final judgment easy to outsource.
 
-Socratic Kernel is not anti-AI. It asks:
-
-- Which tasks should be delegated to tools?
-- Which judgments should remain human?
-- Are we confusing fluent language with sufficient evidence?
-- Does responsibility return to the user when the interaction ends?
+Socratic Kernel is not anti-AI. It redraws the cognitive division of labor:
 
 | Conventional AI assistant | Socratic Kernel |
 | --- | --- |
 | Produces an answer quickly | Requires an initial human position first |
-| Removes cognitive friction | Introduces friction only around reasoning and value judgments |
-| Optimizes satisfaction and engagement | Optimizes independent judgment and responsibility |
+| Removes cognitive friction | Preserves friction around reasoning and value judgments |
+| Optimizes satisfaction and engagement | Optimizes counterexample awareness, verification, and responsibility |
 | Learns preferences for convenience | Keeps an inspectable, exportable, deletable reasoning record |
-| May reinforce an existing narrative | Tests confirmation bias, fluency trust, and judgment outsourcing |
+| May reinforce an existing narrative | Tests evidence, falsifiability, and the strongest opposing view |
 
-## How it works
+## Core experience
 
 ```mermaid
 flowchart LR
-    A[Write the question and initial position] --> B[Separate facts, interpretations, feelings, and guesses]
-    B --> C[Detect hypotheses about reasoning patterns]
-    C --> D[Ask about concepts, evidence, opposition, values, and consequences]
-    D --> E[User answers each question]
-    E --> F[User writes the final judgment]
-    F --> G[Commit to an action and responsibility]
-    G --> H[Store the record locally]
+    A[Write the question and initial position] --> B[Choose local or AI inquiry]
+    B --> C[Concepts, evidence, opposition, values, consequences]
+    C --> D[User answers each question]
+    D --> E[User writes the current judgment]
+    E --> F[User commits to action and responsibility]
+    F --> G[Export a private record or privacy-safe summary]
 ```
 
 ## Five inquiry modes
@@ -76,21 +77,28 @@ flowchart LR
 | **Self-reflection** | Understanding motives, anxiety, and repeated behavior | Sources of desire, identity pressure, reality testing |
 | **AI-use audit** | Before delegating work or judgment to AI | Cognitive division of labor, acceptance criteria, independent verification |
 
-## Privacy by architecture
+## What v0.6 includes
 
-The current version has no backend. Inquiry data stays in browser `LocalStorage` by default.
+- Five local-first structured inquiry modes;
+- First-run guidance and editable examples;
+- Offline rule engine with no account or server requirement;
+- Optional multi-provider Gateway for OpenAI, Claude, Gemini, DeepSeek, Qwen, Kimi, and Grok;
+- Guided model center with Gateway checks, provider selection, and real model testing;
+- Automatic local fallback when a provider fails;
+- Before/after confidence comparison;
+- Collectible judgment artifact with conclusion, strongest opposition, action, responsibility, and confidence shift;
+- Private Markdown, plain-text, and single-session JSON exports;
+- Privacy-safe public sharing with explicit opt-in fields;
+- Seven-day judgment review prompt;
+- Local archive, full backup, import, and deletion;
+- Installable offline PWA, responsive design, and reduced-motion support;
+- Automated Pull Request checks and static builds.
 
-- No upload of questions, answers, or reasoning records;
-- No advertising trackers or analytics SDKs;
-- Full JSON export and import;
-- Per-record deletion and complete deletion;
-- Inspectable front-end rules and scoring logic.
+## 5-minute start
 
-## Quick start
+### Use the local version
 
-### Use online
-
-Open **[sirugao.github.io/socratic-kernel](https://sirugao.github.io/socratic-kernel/)**.
+Open **[sirugao.github.io/socratic-kernel](https://sirugao.github.io/socratic-kernel/)**. It includes the full local inquiry experience, archive, judgment artifact, and PWA without calling an LLM.
 
 ### Run locally
 
@@ -102,50 +110,77 @@ python3 -m http.server 4173
 
 Then open `http://localhost:4173`.
 
-### Test and build
+### Enable real AI models
+
+Use the **Deploy AI Version** button above or import the repository into Vercel. Configure at least one provider in Vercel environment variables:
 
 ```bash
-npm test
-npm run build
+OPENAI_API_KEY=your_server_side_key
+OPENAI_MODEL=gpt-5-mini
+AI_GATEWAY_TOKEN=your_private_beta_token
 ```
 
-The static build is written to `dist/`.
+Redeploy, then open the Model Center:
+
+```text
+Check Gateway → select a provider → test the model → enable AI inquiry
+```
+
+See [`docs/QUICKSTART.md`](./docs/QUICKSTART.md) and [`docs/AI_GATEWAY.md`](./docs/AI_GATEWAY.md).
+
+## Privacy by architecture
+
+Without AI enabled, questions, answers, and archives remain in browser storage.
+
+With AI enabled, the application sends only the current mode, question, initial position, evidence, confidence, and challenge level.
+
+- Provider API keys remain server-side;
+- Historical archives and other answers are not sent by default;
+- Public sharing excludes the question, judgment, and action by default;
+- Local data can be exported or deleted;
+- No advertising profile is created;
+- Reasoning signals are hypotheses for examination, not mental-health diagnoses.
 
 ## Architecture
 
-The MVP deliberately uses zero frameworks, zero runtime dependencies, and no backend.
-
-| Layer | Implementation | Responsibility |
-| --- | --- | --- |
-| Interface | `index.html` + `styles.css` | Responsive and accessible UI |
-| Inquiry engine | `app.js` | State, pattern hypotheses, question composition, workflow |
-| Local memory | `LocalStorage` | Inquiries, confidence changes, recurring signals |
-| Offline | Web manifest + service worker | Installable PWA and caching |
-| Quality gate | Node smoke tests + GitHub Actions | Syntax, capabilities, and deployment validation |
-
-See [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) for details.
+```text
+Web / PWA
+├── local rule engine
+├── local reasoning archive
+├── judgment artifact and privacy-safe sharing
+└── optional AI client
+          ↓
+Socratic Kernel Gateway (Vercel Serverless)
+          ↓
+OpenAI / Claude / Gemini / DeepSeek / Qwen / Kimi / Grok
+```
 
 ## Roadmap
 
 - [x] Local-first structured inquiry loop
-- [x] AI-use audit
-- [x] Local reasoning record, import/export, and deletion
-- [x] Installable offline PWA
-- [ ] Chrome, Edge, and Firefox extension
-- [ ] Inquiry from selected webpage text
-- [ ] Replaceable LLM inquiry layer
+- [x] Multi-provider Gateway and model center
+- [x] Judgment artifact, private exports, and privacy-safe sharing
+- [x] Installable offline PWA and original editorial interface
+- [ ] Browser extension for inquiry from selected webpage text
+- [ ] Accounts, quotas, rate limits, and cost controls
 - [ ] Independent anti-sycophancy reviewer
+- [ ] Tauri desktop and Capacitor mobile applications
 - [ ] Traceable philosophy source layer
 - [ ] User-editable cognitive model
-- [ ] Longitudinal autonomy metrics and evaluation
-
-See the full [`ROADMAP.md`](./docs/ROADMAP.md).
+- [ ] Longitudinal autonomy evaluation
 
 ## Contributing
 
-Contributions are especially welcome in inquiry protocols, anti-sycophancy evaluation, accessibility, browser extensions, privacy threat modeling, and methods for measuring independent judgment.
+Code is welcome, but so are inquiry protocols, documentation, translation, accessibility work, privacy threat modeling, and evaluation research.
 
-Read [`CONTRIBUTING.md`](./CONTRIBUTING.md) before starting substantial work.
+Start with:
+
+- [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+- [open issues](https://github.com/SiruGao/socratic-kernel/issues)
+- [feature request form](https://github.com/SiruGao/socratic-kernel/issues/new?template=feature_request.yml)
+- [private vulnerability reporting](https://github.com/SiruGao/socratic-kernel/security/advisories/new)
+
+If protecting human judgment in the age of AI is a direction worth continuing, consider starring the repository so more people can find and challenge the idea.
 
 ## Boundaries
 
@@ -153,7 +188,7 @@ Socratic Kernel is not therapy and does not replace medical, legal, financial, o
 
 ## License
 
-MIT License. See [`LICENSE`](./LICENSE).
+[MIT License](./LICENSE)
 
 ---
 
