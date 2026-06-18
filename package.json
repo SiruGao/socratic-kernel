@@ -25,7 +25,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --check app.js && node --check sw.js && node tests/smoke.mjs"
+    "test": "node --check app.js && node --check onboarding.js && node --check sw.js && node tests/smoke.mjs"
   },
   "engines": {
     "node": ">=20"
