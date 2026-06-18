@@ -1,10 +1,12 @@
-const CACHE = 'socratic-kernel-v3'
+const CACHE = 'socratic-kernel-v4'
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
+  './ai.css',
   './app.js',
   './onboarding.js',
+  './ai.js',
   './icon.svg',
   './manifest.webmanifest',
 ]
@@ -25,6 +27,7 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return
+  if (new URL(event.request.url).pathname.startsWith('/api/')) return
   event.respondWith(
     caches.match(event.request).then(
       (cached) =>
