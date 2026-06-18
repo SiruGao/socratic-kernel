@@ -1,4 +1,4 @@
-const CACHE = 'socratic-kernel-v4'
+const CACHE = 'socratic-kernel-v5'
 const ASSETS = [
   './',
   './index.html',
@@ -7,6 +7,7 @@ const ASSETS = [
   './app.js',
   './onboarding.js',
   './ai.js',
+  './visual.js',
   './icon.svg',
   './manifest.webmanifest',
 ]
