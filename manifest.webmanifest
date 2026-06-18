@@ -1,13 +1,13 @@
 {
   "name": "Socratic Kernel · 内核",
   "short_name": "内核",
-  "description": "一个不替你做决定的认知自主权练习工具。",
+  "description": "一个不替你做决定的认知自主权练习应用。",
   "lang": "zh-CN",
   "start_url": "./#home",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f4f1e9",
-  "theme_color": "#171915",
+  "background_color": "#eee8de",
+  "theme_color": "#0c0c0b",
   "icons": [
     {
       "src": "./icon.svg",
