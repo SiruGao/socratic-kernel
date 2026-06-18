@@ -1,6 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="128" fill="#171915"/>
-  <circle cx="256" cy="256" r="156" fill="#f4f1e9"/>
-  <path d="M170 174h172v38H238v62h91v38h-91v72h-44V212h-24z" fill="#214732"/>
-  <circle cx="342" cy="174" r="22" fill="#ad6b24"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Socratic Kernel icon">
+  <rect width="512" height="512" rx="92" fill="#0c0c0b"/>
+  <circle cx="256" cy="256" r="160" fill="none" stroke="#eee8de" stroke-opacity="0.28" stroke-width="3"/>
+  <ellipse cx="256" cy="256" rx="166" ry="74" fill="none" stroke="#b18a55" stroke-width="8" transform="rotate(-24 256 256)"/>
+  <ellipse cx="256" cy="256" rx="166" ry="74" fill="none" stroke="#eee8de" stroke-opacity="0.62" stroke-width="4" transform="rotate(56 256 256)"/>
+  <circle cx="256" cy="256" r="78" fill="#5b1820"/>
+  <circle cx="256" cy="256" r="24" fill="#eee8de"/>
+  <circle cx="380" cy="161" r="13" fill="#b18a55"/>
 </svg>
