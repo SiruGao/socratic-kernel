@@ -1,70 +1,63 @@
 name: Bug report
-about: Report a reproducible defect in Socratic Kernel
+about: 报告可以复现的功能、界面、数据或部署问题
+title: "[Bug]: "
 labels: [bug]
 body:
   - type: markdown
     attributes:
       value: |
-        感谢你帮助改进 Socratic Kernel。请不要在公开 Issue 中提交真实隐私数据或可利用的安全漏洞；安全问题请阅读 SECURITY.md。
-  - type: textarea
-    id: summary
+        感谢你帮助改进 Socratic Kernel。请不要在公开 Issue 中粘贴 API Key、访问令牌、私密审议正文或可利用的安全细节。
+  - type: dropdown
+    id: area
     attributes:
-      label: 问题概述
-      description: 实际发生了什么？
-      placeholder: 例如：完成审议后刷新页面，最新记录没有显示在思考档案中。
+      label: 问题区域
+      options:
+        - 本地审议流程
+        - 完成页、判断卡与导出
+        - 模型中心 / Gateway
+        - AI 追问
+        - 思考档案与数据
+        - PWA / 离线缓存
+        - GitHub Pages / Vercel 部署
+        - 视觉、动效与无障碍
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 实际发生了什么？你原本期望什么？
     validations:
       required: true
   - type: textarea
     id: steps
     attributes:
       label: 复现步骤
-      description: 请提供最小、明确的复现流程。
       placeholder: |
         1. 打开……
-        2. 输入……
-        3. 点击……
-        4. 观察到……
+        2. 点击……
+        3. 输入非敏感测试内容……
+        4. 出现……
     validations:
       required: true
-  - type: textarea
-    id: expected
+  - type: input
+    id: deployment
     attributes:
-      label: 预期行为
-    validations:
-      required: true
-  - type: dropdown
-    id: area
-    attributes:
-      label: 影响区域
-      options:
-        - 创建审议
-        - 逐题追问
-        - 最终判断与复盘
-        - 思考档案
-        - 导入与导出
-        - PWA / 离线
-        - 响应式界面
-        - 部署与构建
-        - 其他
-    validations:
-      required: true
+      label: 部署方式
+      placeholder: GitHub Pages / Vercel / vercel dev / 静态服务器
   - type: input
     id: browser
     attributes:
-      label: 浏览器与版本
-      placeholder: Chrome 126 / Safari 18 / Firefox 128
+      label: 浏览器与设备
+      placeholder: Safari 26.5 / macOS，Chrome / Android 等
     validations:
       required: true
-  - type: input
-    id: os
-    attributes:
-      label: 操作系统
-      placeholder: macOS / Windows / iOS / Android / Linux
   - type: textarea
     id: evidence
     attributes:
-      label: 截图、控制台信息或补充材料
-      description: 请先移除真实问题内容、姓名和其他敏感信息。
+      label: 截图、控制台信息或非敏感日志
+      description: 请删除密钥、令牌、个人身份和私密审议内容。
   - type: checkboxes
     id: checks
     attributes:
@@ -72,5 +65,5 @@ body:
       options:
         - label: 我已搜索现有 Issue，未发现相同问题。
           required: true
-        - label: 我没有在此 Issue 中公开真实隐私数据或安全漏洞细节。
+        - label: 我确认没有提交 API Key、访问令牌或私密审议正文。
           required: true
