@@ -1,8 +1,8 @@
 {
   "name": "socratic-kernel",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
-  "description": "A local-first cognitive autonomy practice tool that asks users to form a position before receiving structured Socratic inquiry.",
+  "description": "A local-first cognitive autonomy practice tool with an optional multi-provider Socratic AI gateway.",
   "homepage": "https://sirugao.github.io/socratic-kernel/",
   "repository": {
     "type": "git",
@@ -20,12 +20,13 @@
     "pwa",
     "ai-literacy",
     "anti-sycophancy",
+    "llm-gateway",
     "privacy"
   ],
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --check app.js && node --check onboarding.js && node --check sw.js && node tests/smoke.mjs"
+    "test": "node --check app.js && node --check onboarding.js && node --check ai.js && node --check sw.js && node --check lib/ai-gateway.js && node --check lib/http.js && node --check api/providers.js && node --check api/inquiry.js && node tests/smoke.mjs && node tests/ai-gateway.mjs"
   },
   "engines": {
     "node": ">=20"
