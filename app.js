@@ -1,6 +1,11 @@
+import { injectSpeedInsights } from '@vercel/speed-insights'
+
 const KEY = 'socratic-kernel:data:v2'
 const LEGACY_KEY = 'kernel:socratic:v1'
 const app = document.querySelector('#app')
+
+// Initialize Vercel Speed Insights
+injectSpeedInsights()
 
 const MODES = {
   decision: ['决策审议', '厘清标准、代价与责任'],
