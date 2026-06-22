@@ -16,7 +16,7 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,18 +32,29 @@ jobs:
         run: |
           npm install --no-save playwright
           npx playwright install --with-deps chromium
-      - name: Run browser interaction tests
+      - name: Start test server
         run: |
-          python3 -m http.server 4173 --directory dist > /tmp/socratic-server.log 2>&1 &
-          SERVER_PID=$!
-          trap 'kill $SERVER_PID || true' EXIT
+          nohup python3 -m http.server 4173 --directory dist > /tmp/socratic-server.log 2>&1 &
+          echo $! > /tmp/socratic-server.pid
           for attempt in {1..30}; do
             if curl --fail --silent http://127.0.0.1:4173/ > /dev/null; then
-              break
+              exit 0
             fi
             sleep 1
           done
-          node tests/e2e/navigation.mjs
-          node tests/e2e/models.mjs
-          node tests/e2e/session.mjs
-          node tests/e2e/data-mobile.mjs
+          cat /tmp/socratic-server.log
+          exit 1
+      - name: Browser test — navigation
+        run: node tests/e2e/navigation.mjs
+      - name: Browser test — model center
+        if: always()
+        run: node tests/e2e/models.mjs
+      - name: Browser test — inquiry and results
+        if: always()
+        run: node tests/e2e/session.mjs
+      - name: Browser test — data and mobile
+        if: always()
+        run: node tests/e2e/data-mobile.mjs
+      - name: Stop test server
+        if: always()
+        run: kill $(cat /tmp/socratic-server.pid) || true
