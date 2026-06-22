@@ -35,11 +35,11 @@ try {
   await expectRoute(mobile.page, '#new', '#new-form')
   assert.ok(await mobile.page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1))
 
-  await mobile.page.locator('[data-route="models"]').click()
+  await mobile.page.locator('.nav [data-route="models"]').click()
   await expectRoute(mobile.page, '#models', '#ai-settings-form')
   assert.ok(await mobile.page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1))
 
-  await mobile.page.locator('[data-route="new"]').click()
+  await mobile.page.locator('.nav [data-route="new"]').click()
   await expectRoute(mobile.page, '#new', '#new-form')
   assertNoErrors(mobile.errors)
   console.log('Data controls and mobile navigation passed.')
