@@ -58,6 +58,10 @@ function rememberInteraction(target) {
   }
 }
 
+function updateRememberedScroll() {
+  if (restoreContext && onModelRoute()) restoreContext.scrollY = scrollY
+}
+
 function pinModelRoute() {
   if (modelPageExists() && !onModelRoute()) history.replaceState(null, '', '#models')
 }
@@ -70,7 +74,7 @@ function restoreModelContext() {
     ? appRoot.querySelector(restoreContext.focusSelector)
     : null
   target?.focus?.({ preventScroll: true })
-  scrollTo({ top: restoreContext.scrollY, left: 0, behavior: 'instant' })
+  scrollTo({ top: restoreContext.scrollY, left: 0, behavior: 'auto' })
 }
 
 function scheduleRestore() {
@@ -180,9 +184,8 @@ appRoot.addEventListener('click', (event) => {
   appRoot.querySelector('[data-ai-action="check"]')?.click()
 })
 
-addEventListener('scroll', () => {
-  if (restoreContext && onModelRoute()) restoreContext.scrollY = scrollY
-}, { passive: true })
+addEventListener('wheel', updateRememberedScroll, { passive: true })
+addEventListener('touchmove', updateRememberedScroll, { passive: true })
 
 addEventListener('hashchange', () => {
   if (!onModelRoute()) restoreContext = null
