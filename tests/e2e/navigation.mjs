@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import { createBrowserPage, reset, expectRoute, probeClick, assertNoErrors } from './helpers.mjs'
 
 const { browser, context, page, errors } = await createBrowserPage()
+const nav = (route) => page.locator(`.nav [data-route="${route}"]`)
 
 try {
   await reset(page)
@@ -19,28 +20,28 @@ try {
   await expectRoute(page, '#new', '#new-form')
   assert.match(await page.locator('textarea[name="question"]').inputValue(), /使用 AI/)
 
-  await page.locator('[data-route="home"]').click()
+  await nav('home').click()
   await expectRoute(page, '#home', '.hero')
 
   await page.getByRole('button', { name: '审计一次 AI 使用', exact: true }).click()
   await expectRoute(page, '#ai-audit', '#new-form')
   assert.equal(await page.locator('input[value="aiuse"]').isChecked(), true)
 
-  await page.locator('[data-route="history"]').click()
+  await nav('history').click()
   await expectRoute(page, '#history', '.page-head')
 
-  await page.locator('[data-route="data"]').click()
+  await nav('data').click()
   await expectRoute(page, '#data', '.data-grid')
 
-  await page.locator('[data-route="models"]').click()
+  await nav('models').click()
   await expectRoute(page, '#models', '#ai-settings-form')
 
-  await page.locator('[data-route="new"]').click()
+  await nav('new').click()
   await expectRoute(page, '#new', '#new-form')
 
-  await page.locator('[data-route="models"]').click()
+  await nav('models').click()
   await expectRoute(page, '#models', '#ai-settings-form')
-  await page.locator('[data-route="home"]').click()
+  await nav('home').click()
   await expectRoute(page, '#home', '.hero')
 
   assertNoErrors(errors)
