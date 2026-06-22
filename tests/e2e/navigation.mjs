@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { createBrowserPage, reset, expectRoute, probeClick, assertNoErrors } from './helpers.mjs'
+import { createBrowserPage, reset, expectRoute, assertNoErrors } from './helpers.mjs'
 
 const { browser, context, page, errors } = await createBrowserPage()
 const nav = (route) => page.locator(`.nav [data-route="${route}"]`)
@@ -8,9 +8,7 @@ try {
   await reset(page)
   await page.getByRole('heading', { name: /答案可以外包/ }).waitFor()
 
-  const startButton = page.getByRole('button', { name: '开始第一次审议', exact: true })
-  const probe = await probeClick(page, startButton, 'home.empty.start')
-  assert.notEqual(probe.afterSynthetic.hash, probe.before.hash, 'Neither pointer nor synthetic click changed route')
+  await page.getByRole('button', { name: '开始第一次审议', exact: true }).click()
   await expectRoute(page, '#new', '#new-form')
 
   await page.getByRole('link', { name: '返回首页' }).click()
