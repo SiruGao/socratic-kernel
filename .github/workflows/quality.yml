@@ -45,16 +45,34 @@ jobs:
           cat /tmp/socratic-server.log
           exit 1
       - name: Browser test — navigation
-        run: node tests/e2e/navigation.mjs
+        run: |
+          set -o pipefail
+          node tests/e2e/navigation.mjs 2>&1 | tee /tmp/e2e-navigation.log
       - name: Browser test — model center
         if: always()
-        run: node tests/e2e/models.mjs
+        run: |
+          set -o pipefail
+          node tests/e2e/models.mjs 2>&1 | tee /tmp/e2e-models.log
       - name: Browser test — inquiry and results
         if: always()
-        run: node tests/e2e/session.mjs
+        run: |
+          set -o pipefail
+          node tests/e2e/session.mjs 2>&1 | tee /tmp/e2e-session.log
       - name: Browser test — data and mobile
         if: always()
-        run: node tests/e2e/data-mobile.mjs
+        run: |
+          set -o pipefail
+          node tests/e2e/data-mobile.mjs 2>&1 | tee /tmp/e2e-data-mobile.log
+      - name: Upload browser logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-test-logs
+          path: |
+            /tmp/e2e-*.log
+            /tmp/socratic-server.log
+          if-no-files-found: warn
+          retention-days: 3
       - name: Stop test server
         if: always()
         run: kill $(cat /tmp/socratic-server.pid) || true
